@@ -1,0 +1,10 @@
+Package: RAPID
+Type: Package
+Title: R-based AI Processing and Information Detection
+Version: 0.1.0
+Author: Nicu Calcea
+Maintainer: Nicu Calcea <mail@nicu.md>
+Description: An experimental library that uses the ChatGPT API to process and create data in R.
+License: GNU General Public License v3.0
+Encoding: UTF-8
+LazyData: true
