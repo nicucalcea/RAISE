@@ -9,7 +9,7 @@ extract_ai <- function(text, cols, id, model = "text-davinci-003", temperature =
   res <- httr::POST(url = "https://api.openai.com/v1/completions",
                     httr::add_headers(.headers = c(
                       `Content-Type` = "application/json",
-                      `Authorization` = "Bearer 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"
+                      `Authorization` = "Bearer "
                     )),
                     body = data) |>
     httr::content()
