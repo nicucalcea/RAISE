@@ -7,15 +7,18 @@
 extract_ai(text, cols, ...)
 }
 \arguments{
-\item{cols}{The columns of the tibble to be returned. Could be something like `c("State", "Area", "Population")`}
+\item{text}{A vector of unstructured text you want to parse to a table.}
 
-\item{prompt}{The prompt you'd like to run. It could be something like "A spreadsheet of all 50 US states"}
+\item{cols}{The columns of the tibble to be returned. Could be something like `c("State", "Area", "Population")`}
 }
 \description{
 You will need an OpenAI API key.
 }
 \examples{
-us_states <- create_ai("All 50 US states", c("State", "Area", "Population"))
-mountains <- create_ai("Top 5 tallest mountains", c("Mountain", "Country", "Height in metres"))
-peppers <- create_ai("Top 10 hottest peppers", c("Pepper", "Country of origin", "Scoville heat units"))
+# mps <- read_csv("https://raw.githubusercontent.com/sparkd/mp-financial-interests/master/data/financial-interests-2010-18.csv") |>
+  filter(type_code == 1) |>
+  head(10) |>
+  pluck("description") |>
+  extract_ai(cols = c("date", "sum", "donor", "donor_address", "purpose", "hours", "date_registered"),
+             max_tokens = 1000)
 }
