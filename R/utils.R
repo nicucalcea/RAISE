@@ -17,7 +17,7 @@ request_openai <- function(prompt, api_key = Sys.getenv("OPENAI_API"), model = "
                     body = data) |>
     httr::content()
 
-  message(paste0("Tokens used: ", res$usage$total_tokens))
+  message(paste0("Used ", res$usage$total_tokens, " tokens, of which ", res$usage$prompt_tokens, " for the prompt, and ", res$usage$completion_tokens, " for the completion."))
   return(res)
 }
 
