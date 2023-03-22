@@ -3,7 +3,7 @@
 #' Build a request to the OpenAI API
 #' @param prompt The prompt
 #' @noRd
-request_openai <- function(prompt, api_key = Sys.getenv("OPENAI_API"), model = "text-davinci-003", temperature = 0, max_tokens = 2000, top_p = 1, frequency_penalty = 0, presence_penalty = 0) {
+request_openai <- function(prompt, api_key = Sys.getenv("OPENAI_API_KEY"), model = "text-davinci-003", temperature = 0, max_tokens = 2000, top_p = 1, frequency_penalty = 0, presence_penalty = 0) {
 
   data = paste0('{"model": "', model, '", "prompt": "', prompt, '",  "temperature": ', temperature, ', "max_tokens": ', max_tokens, ', "top_p": ', top_p, ', "frequency_penalty": ', frequency_penalty, ', "presence_penalty": ', presence_penalty, '}')
 

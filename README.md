@@ -32,10 +32,14 @@ Run `usethis::edit_r_environ()` to open your R environment file and add
 a new line containing your API key. It should look something like this.
 
 ```
-OPENAI_API = "API_KEY_HERE"
+OPENAI_API_KEY = "API_KEY_HERE"
 ```
 
 Save it and restart.
+
+If you use [gptstudio](https://github.com/MichelNivard/gptstudio) or
+[gpttools](https://github.com/JamesHWade/gpttools), you should already
+be set up.
 
 ## Creating data
 
