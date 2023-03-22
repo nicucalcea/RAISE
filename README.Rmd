@@ -1,6 +1,5 @@
 ---
 title: "RAISE: R-based AI for Structured Extraction"
-author: "Nicu Calcea"
 output:
   github_document:
     toc: true
@@ -10,6 +9,6 @@ editor_options:
     wrap: sentence
 ---
 
-This is an experimental library for using ChatGPT to help with difficult to automate tasks.
+This is an experimental library for using ChatGPT to help with difficult to automate tasks, such as parsing unstructured text into structured data.
 
 ChatGPT is new and tends to [hallucinate](https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)), so it will return data that is wrong or doesn't even exist. Use at your own risk.

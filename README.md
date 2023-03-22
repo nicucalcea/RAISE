@@ -1,6 +1,5 @@
 RAISE: R-based AI for Structured Extraction
 ================
-Nicu Calcea
 
 This is an experimental library for using ChatGPT to help with difficult
 to automate tasks.
