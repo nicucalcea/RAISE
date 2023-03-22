@@ -50,7 +50,7 @@ As mentioned before, GPT-3.5 is a language model, not a factual search engine. W
 
 GPT-3.5 seems quite good at parsing data from unstructured text.
 
-Let's take the [Register of Members' Financial Interests](https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/parliamentary-commissioner-for-standards/registers-of-interests/register-of-members-financial-interests/), a notoriously difficult database to parse, making it difficult to keep track of changes over time.
+Let's take the [Register of Members' Financial Interests](https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/parliamentary-commissioner-for-standards/registers-of-interests/register-of-members-financial-interests/), a notoriously clunky database to parse, making it difficult to keep track of changes over time.
 
 ```{r eval=FALSE}
 library(tidyverse)

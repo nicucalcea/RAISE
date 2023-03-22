@@ -1,11 +1,9 @@
 # Add functions to send request and parse response
 
-# https://stackoverflow.com/questions/70060847/how-to-work-with-openai-maximum-context-length-is-2049-tokens
-
 #' Build a request to the OpenAI API
 #' @param prompt The prompt
 #' @noRd
-request_openai <- function(prompt, api_key = Sys.getenv("OPENAI_API"), model = "text-davinci-003", temperature = 0, max_tokens = 3000, top_p = 1, frequency_penalty = 0, presence_penalty = 0) {
+request_openai <- function(prompt, api_key = Sys.getenv("OPENAI_API"), model = "text-davinci-003", temperature = 0, max_tokens = 2000, top_p = 1, frequency_penalty = 0, presence_penalty = 0) {
 
   data = paste0('{"model": "', model, '", "prompt": "', prompt, '",  "temperature": ', temperature, ', "max_tokens": ', max_tokens, ', "top_p": ', top_p, ', "frequency_penalty": ', frequency_penalty, ', "presence_penalty": ', presence_penalty, '}')
 
@@ -17,6 +15,7 @@ request_openai <- function(prompt, api_key = Sys.getenv("OPENAI_API"), model = "
                     body = data) |>
     httr::content()
 
+  print(res)
   message(paste0("Used ", res$usage$total_tokens, " tokens, of which ", res$usage$prompt_tokens, " for the prompt, and ", res$usage$completion_tokens, " for the completion."))
   return(res)
 }
@@ -30,6 +29,26 @@ parse_openai_response <- function(response, cols) {
   response <- response[!grepl('^[[:blank:]+-=:_|]*$', response)]
   response <- gsub('(^\\s*?\\|)|(\\|\\s*?$)', '', response)
   response <- readr::read_delim(paste(response, collapse = '\n'),
-                    delim = '|', col_names = cols)
+                    delim = '|', col_names = cols, col_types = cols(.default = col_character()))
   return(response)
+}
+
+
+# Split a dataset so that we can loop requests
+#' https://stackoverflow.com/questions/60074932/cumulative-sum-in-r-by-group-and-start-over-when-sum-of-values-in-group-larger-t
+#' @param prompt The prompt
+#' @noRd
+group_by_threshold = function(col, threshold) {
+  cumsum <- 0
+  group <- 1
+  result <- numeric()
+  for (i in 1:length(col)) {
+    cumsum <- cumsum + col[i]
+    if (cumsum > threshold) {
+      group <- group + 1
+      cumsum <- col[i]
+    }
+    result = c(result, group)
+  }
+  return (result)
 }
