@@ -2,7 +2,7 @@
 #'
 #' You will need an OpenAI API key.
 #'
-#' @param prompt The prompt you'd like to run. It could be something like "A spreadsheet of all 50 US states"
+#' @param text A vector of unstructured text you want to parse to a table.
 #' @param cols The columns of the tibble to be returned. Could be something like `c("State", "Area", "Population")`
 #' @export
 #' @examples
