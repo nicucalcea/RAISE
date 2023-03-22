@@ -23,9 +23,12 @@ extract_ai <- function(text, cols, ...) {
   }
 
   if (is.character(text) & length(text) == 1) {
-    # If the primpt is a single character string, submit that
+
+    # If the prompt is a single character string, submit that
     res <- text_to_tibble(text)
+
   } else if (is.vector(text)) {
+
     # This will split vectors into multiple queries and rejoin them
     max_tokens_prompt = 3097 / 2 - 50
 
@@ -43,8 +46,8 @@ extract_ai <- function(text, cols, ...) {
       res_instance <- prompt_to_tibble(text = text, cols = cols)
 
       res <- dplyr::bind_rows(res, res_instance)
-      Sys.sleep(1)
-    }
+
+      }
   }
   return(res)
 }

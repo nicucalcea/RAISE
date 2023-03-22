@@ -1,10 +1,12 @@
-RAISE: R-based AI for Structured Extraction
+RAISE: R-based AI for Structured Extraction\*
 ================
 
 - <a href="#setting-up" id="toc-setting-up">Setting up</a>
 - <a href="#creating-data" id="toc-creating-data">Creating data</a>
 - <a href="#parsing-unstructured-data"
   id="toc-parsing-unstructured-data">Parsing unstructured data</a>
+
+*\*Yes, this is an AI-generated name.*
 
 This is an experimental library for using GPT-3.5 / ChatGPT to help with
 difficult to automate tasks, such as parsing unstructured text into

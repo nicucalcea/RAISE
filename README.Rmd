@@ -1,5 +1,5 @@
 ---
-title: "RAISE: R-based AI for Structured Extraction"
+title: "RAISE: R-based AI for Structured Extraction*"
 output:
   github_document:
     toc: true
@@ -8,6 +8,8 @@ editor_options:
   markdown: 
     wrap: sentence
 ---
+
+*\*Yes, this is an AI-generated name.*
 
 This is an experimental library for using GPT-3.5 / ChatGPT to help with difficult to automate tasks, such as parsing unstructured text into structured data.
 
@@ -26,9 +28,10 @@ You'll also need to set up an [OpenAI API key](https://openai.com/).
 
 The easiest way for RAISE to access the key is to save it into your R environment.
 
-Run `usethis::edit_r_environ()` to open your R environment file and add a new line containing your API key. It should look something like this.
+Run `usethis::edit_r_environ()` to open your R environment file and add a new line containing your API key.
+It should look something like this.
 
-```{eval=FALSE}
+``` {eval="FALSE"}
 OPENAI_API_KEY = "API_KEY_HERE"
 ```
 
@@ -46,7 +49,10 @@ Let's say you want a table of the biggest buildings in the world and their heigh
 buildings <- create_ai("Top 10 tallest buildings in the world",
                        cols = c("Building", "Country", "Developer", "Year built", "Height in metres"))
 ```
-As mentioned before, GPT-3.5 is a language model, not a factual search engine. While the data can be correct, there's a chance it is not and it needs to manually checked. This is just an experiment.
+
+As mentioned before, GPT-3.5 is a language model, not a factual search engine.
+While the data can be correct, there's a chance it is not and it needs to manually checked.
+This is just an experiment.
 
 ## Parsing unstructured data
 
@@ -64,6 +70,8 @@ mps_structured <- extract_ai(mps$description,
                              cols = c("date", "sum", "donor", "donor_address", "purpose", "hours", "date_registered"))
 ```
 
-GPT-3.5 has extracted and filled in the columns we asked for. As before, the process is not without fault and the results will need to be verified, but it can save many hours of manual labour and give us quick insights even if the data is not final.
+GPT-3.5 has extracted and filled in the columns we asked for.
+As before, the process is not without fault and the results will need to be verified, but it can save many hours of manual labour and give us quick insights even if the data is not final.
 
-The API has some limitations in terms of [how big a prompt and answer can be](https://platform.openai.com/docs/models/gpt-3-5), so we're splitting the query into chunks and rejoining the parts afterwards. This may throw some errors in the future, so it's a work in progress.
+The API has some limitations in terms of [how big a prompt and answer can be](https://platform.openai.com/docs/models/gpt-3-5), so we're splitting the query into chunks and rejoining the parts afterwards.
+This may throw some errors in the future, so it's a work in progress.
