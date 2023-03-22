@@ -8,3 +8,4 @@ Description: An experimental library that uses the ChatGPT API to process and cr
 License: GNU General Public License v3.0
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.2.3
