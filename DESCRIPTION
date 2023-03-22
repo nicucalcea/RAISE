@@ -1,6 +1,6 @@
-Package: RAPID
+Package: RAISE
 Type: Package
-Title: R-based AI Processing and Information Detection
+Title: R-based AI for Structured Extraction
 Version: 0.1.0
 Author: Nicu Calcea
 Maintainer: Nicu Calcea <mail@nicu.md>
