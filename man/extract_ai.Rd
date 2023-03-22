@@ -17,8 +17,7 @@ You will need an OpenAI API key.
 \examples{
 # mps <- read_csv("https://raw.githubusercontent.com/sparkd/mp-financial-interests/master/data/financial-interests-2010-18.csv") |>
   filter(type_code == 1) |>
-  head(10) |>
+  head(100) |>
   pluck("description") |>
-  extract_ai(cols = c("date", "sum", "donor", "donor_address", "purpose", "hours", "date_registered"),
-             max_tokens = 1000)
+  extract_ai(cols = c("date", "sum", "donor", "donor_address", "purpose", "hours", "date_registered"))
 }
