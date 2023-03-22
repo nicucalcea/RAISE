@@ -15,5 +15,7 @@ create_ai(prompt, cols, ...)
 You will need an OpenAI API key.
 }
 \examples{
-us_states <- create_ai("A spreadsheet of all 50 US states", c("State", "Area", "Population"))
+us_states <- create_ai("All 50 US states", c("State", "Area", "Population"))
+mountains <- create_ai("Top 5 tallest mountains", c("Mountain", "Country", "Height in metres"))
+peppers <- create_ai("Top 10 hottest peppers", c("Pepper", "Country of origin", "Scoville heat units"))
 }

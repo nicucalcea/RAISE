@@ -7,7 +7,7 @@
 #' @noRd
 request_openai <- function(prompt, api_key = Sys.getenv("OPENAI_API"), model = "text-davinci-003", temperature = 0, max_tokens = 3000, top_p = 1, frequency_penalty = 0, presence_penalty = 0) {
 
-  data = paste0('{"model": "text-davinci-003", "prompt": "', prompt, '",  "temperature": ', temperature, ', "max_tokens": ', max_tokens, ', "top_p": ', top_p, ', "frequency_penalty": ', frequency_penalty, ', "presence_penalty": ', presence_penalty, '}')
+  data = paste0('{"model": "', model, '", "prompt": "', prompt, '",  "temperature": ', temperature, ', "max_tokens": ', max_tokens, ', "top_p": ', top_p, ', "frequency_penalty": ', frequency_penalty, ', "presence_penalty": ', presence_penalty, '}')
 
   res <- httr::POST(url = "https://api.openai.com/v1/completions",
                     httr::add_headers(.headers = c(
@@ -17,7 +17,8 @@ request_openai <- function(prompt, api_key = Sys.getenv("OPENAI_API"), model = "
                     body = data) |>
     httr::content()
 
-  print(res)
+  message(paste0("Tokens used: ", res$usage$total_tokens))
+  return(res)
 }
 
 #' Parse an API response to a tibble
@@ -25,9 +26,10 @@ request_openai <- function(prompt, api_key = Sys.getenv("OPENAI_API"), model = "
 #' @param cols The coumn names to use as headers
 #' @noRd
 parse_openai_response <- function(response, cols) {
-  response$choices[[1]]$text |>
-    tibble::as_tibble() |>
-    tidyr::separate_longer_delim(1, delim = "\n") |>
-    tail(-1) |>
-    tidyr::separate(value, sep = "\\|", into = cols)
+  response <- response$choices[[1]]$text # Extract from response
+  response <- response[!grepl('^[[:blank:]+-=:_|]*$', response)]
+  response <- gsub('(^\\s*?\\|)|(\\|\\s*?$)', '', response)
+  response <- readr::read_delim(paste(response, collapse = '\n'),
+                    delim = '|', col_names = cols)
+  return(response)
 }
