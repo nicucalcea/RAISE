@@ -23,9 +23,11 @@ You can install the library from GitHub.
 
 ``` r
 remotes::install_github("nicucalcea/RAISE")
+library(RAISE)
 ```
 
-You’ll also need to set up an [OpenAI API key](https://openai.com/).
+You’ll also need to set up an [OpenAI API
+key](https://platform.openai.com/).
 
 The easiest way for RAISE to access the key is to save it into your R
 environment.
@@ -56,7 +58,7 @@ buildings <- create_ai("Top 10 tallest buildings in the world",
                        cols = c("Building", "Country", "Developer", "Year built", "Height in metres"))
 ```
 
-As mentioned before, GPT-3.5 is a language model, not a factual search
+As mentioned above, GPT-3.5 is a language model, not a factual search
 engine. While the data can be correct, there’s a chance it is not and it
 needs to manually checked. This is just an experiment.
 
@@ -79,12 +81,24 @@ mps_structured <- extract_ai(mps$description,
                              cols = c("date", "sum", "donor", "donor_address", "purpose", "hours", "date_registered"))
 ```
 
-GPT-3.5 has extracted and filled in the columns we asked for. As before,
-the process is not without fault and the results will need to be
-verified, but it can save many hours of manual labour and give us quick
-insights even if the data is not final.
+Another example:
+
+``` r
+addresses <- c("Majestic Distribution, Halesfield 2, Telford TF7 4QH", "1 Reeves Drive, Petersfield GU31 4FN", "9 Hawthorn Cottages, Hook Lane, Welling DA16 2LD", "4 Silvester Road, Castor PE5 7BA", "11 St Georges Close, London SE28 8QE", "510 Castle Wharf, East Tucker Street, Bristol BS1 6JU", "19 Brookside Close, Wombourne WV5 8JU", "384 Hough Fold Way, Bolton BL2 3QA", "3 Hadley Croft, Smethwick B66 1DP", "5 Field Drive, Crawley Down RH10 4AE", "Flat 21, Beadnall House, 5 Lingwood Court, Thornaby TS17 0BF", "29 St Leonards Close, Bridgnorth WV16 4EJ", "3 Colville Road, Bournemouth BH5 2AG", "Fferm Ganol, Llaithddu LD1 6YS", "129 Scott Road, Sheffield S4 7BH", "R A O B Club, The Exchange Building, Chapel Street, Goole DN14 5RJ", "Flat 1, Lawrence Court, 15 Highfield South, Birkenhead CH42 4NA", "37 Lower Noon Sun, Birch Vale SK22 1AQ", "1 Church Mews, Exmouth EX8 2SJ", "17 Windsor Drive, Kidderminster DY10 2NA")
+
+addressses_parsed <- extract_ai(addresses,
+                                cols = c("city", "postcode", "street name", "street number", "flat or unit number"))
+```
+
+In both cases, GPT-3.5 has extracted and filled in the columns we asked
+for.
+
+As before, the process is not without fault and the results will need to
+be verified, but it can save many hours of manual labour and give us
+quick insights even if the data is not final.
 
 The API has some limitations in terms of [how big a prompt and answer
 can be](https://platform.openai.com/docs/models/gpt-3-5), so we’re
-splitting the query into chunks and rejoining the parts afterwards. This
-may throw some errors in the future, so it’s a work in progress.
+splitting the query into chunks and rejoining the parts afterwards.
+
+This may throw some errors in the future, so it’s a work in progress.
