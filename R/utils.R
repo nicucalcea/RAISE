@@ -29,7 +29,7 @@ parse_openai_response <- function(response, cols) {
   response <- response[!grepl('^[[:blank:]+-=:_|]*$', response)]
   response <- gsub('(^\\s*?\\|)|(\\|\\s*?$)', '', response)
   response <- readr::read_delim(paste(response, collapse = '\n'),
-                    delim = '|', col_names = cols, col_types = cols(.default = col_character()))
+                    delim = '|', col_names = cols, col_types = readr::cols(.default = readr::col_character()))
   return(response)
 }
 

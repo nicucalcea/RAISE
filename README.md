@@ -14,8 +14,17 @@ structured data.
 
 ChatGPT is new and tends to
 [hallucinate](https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)),
-so it will return data that is wrong or doesn’t even exist. Use at your
-own risk.
+so it will return data that is wrong or doesn’t even exist.
+
+Also note that ChatGPT may respond with a different output or even
+different formatting even if you submit the exact same prompt twice. For
+example, it may randomly choose to display missing values as a space, or
+as a hyphen, or as NA.
+
+This means you can’t reliably incorporate it into a bigger workflow and
+expect it to produce the same result consistently.
+
+Use at your own risk.
 
 ## Setting up
 
