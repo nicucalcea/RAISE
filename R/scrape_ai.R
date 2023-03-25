@@ -4,14 +4,14 @@
 #'
 #' @param url A URL to the page you want to scrape.
 #' @param cols The columns of the tibble to be returned. Could be something like `c("State", "Area", "Population")`
-#' @param clean Whether to strip the HTML of unnecessary tags to reduce the number of tokens.
+#' @param clean Whether to strip the HTML of unnecessary tags to reduce the number of tokens. Can be set to `"text"`, `"html"` or `FALSE`.
 #' @param css CSS selector (also to reduce the number of tokens).
 #' @param xpath XPATH selector (also to reduce the number of tokens). Alternative to the CSS selector.
 #' @export
 #' @examples
 #' oscar_winners <- scrape_ai("https://edition.cnn.com/2023/03/12/entertainment/oscar-winners-2023/index.html", cols = c("category", "winner", "nominees"), clean = "text", css = "div[itemprop='articleBody']")
 
-scrape_ai <- function(url, cols, clean = "none", css = FALSE, xpath = FALSE) {
+scrape_ai <- function(url, cols, clean = "text", css = FALSE, xpath = FALSE) {
   content_raw <- rvest::read_html(url) # read in full HTML
 
   content <- content_raw |>
@@ -28,10 +28,10 @@ scrape_ai <- function(url, cols, clean = "none", css = FALSE, xpath = FALSE) {
   # Clean up script, style, etc to make file smaller
   # https://lxml.de/api/lxml.html.clean-module.html
   if (clean == "html") {
-    xml2::xml_remove(content |> rvest::html_elements("meta"))
-    xml2::xml_remove(content |> rvest::html_elements("script"))
-    xml2::xml_remove(content |> rvest::html_elements("style"))
-    xml2::xml_remove(content |> rvest::html_elements("svg"))
+    # xml2::xml_remove(content |> rvest::html_elements("meta"))
+    # xml2::xml_remove(content |> rvest::html_elements("script"))
+    # xml2::xml_remove(content |> rvest::html_elements("style"))
+    # xml2::xml_remove(content |> rvest::html_elements("svg"))
 
     content_text <- content |> as.character() # convert to character
 

@@ -4,14 +4,14 @@
 \alias{scrape_ai}
 \title{Scrape data from a website using AI}
 \usage{
-scrape_ai(url, cols, clean = "none", css = FALSE, xpath = FALSE)
+scrape_ai(url, cols, clean = "text", css = FALSE, xpath = FALSE)
 }
 \arguments{
 \item{url}{A URL to the page you want to scrape.}
 
 \item{cols}{The columns of the tibble to be returned. Could be something like `c("State", "Area", "Population")`}
 
-\item{clean}{Whether to strip the HTML of unnecessary tags to reduce the number of tokens.}
+\item{clean}{Whether to strip the HTML of unnecessary tags to reduce the number of tokens. Can be set to `"text"`, `"html"` or `FALSE`.}
 
 \item{css}{CSS selector (also to reduce the number of tokens).}
 
