@@ -1,16 +1,20 @@
 RAISE: R-based AI for Structured Extraction\*
 ================
 
+- <a href="#disclaimers" id="toc-disclaimers">Disclaimers</a>
 - <a href="#setting-up" id="toc-setting-up">Setting up</a>
 - <a href="#creating-data" id="toc-creating-data">Creating data</a>
 - <a href="#parsing-unstructured-data"
   id="toc-parsing-unstructured-data">Parsing unstructured data</a>
+- <a href="#web-scraping" id="toc-web-scraping">Web scraping</a>
 
 *\*Yes, this is an AI-generated name.*
 
-This is an experimental library for using GPT-3.5 / ChatGPT to help with
+This is an experimental library for using GPT / ChatGPT to help with
 difficult to automate tasks, such as parsing unstructured text into
 structured data.
+
+### Disclaimers
 
 ChatGPT is new and tends to
 [hallucinate](https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)),
@@ -24,6 +28,15 @@ as a hyphen, or as NA.
 This means you can’t reliably incorporate it into a bigger workflow and
 expect it to produce the same result consistently.
 
+At the moment, the library is a collection of exploratory scripts that
+will fail often and without warning. Things will change and safeguards
+will be put in place as the library matures.
+
+OpenAI’s new GPT-4 has a higher token limit (meaning longer prompts) and
+is supposed to be better than GPT-3.5 at parsing data. However, I don’t
+yet have access to GPT-4, so all these examples are written with GPT-3.5
+in mind.
+
 Use at your own risk.
 
 ## Setting up
@@ -35,10 +48,8 @@ remotes::install_github("nicucalcea/RAISE")
 library(RAISE)
 ```
 
-You’ll also need to set up an [OpenAI API
-key](https://platform.openai.com/).
-
-The easiest way for RAISE to access the key is to save it into your R
+You’ll need an [OpenAI API key](https://platform.openai.com/). The
+easiest way for RAISE to access the key is to save it into your R
 environment.
 
 Run `usethis::edit_r_environ()` to open your R environment file and add
@@ -67,13 +78,13 @@ buildings <- create_ai("Top 10 tallest buildings in the world",
                        cols = c("Building", "Country", "Developer", "Year built", "Height in metres"))
 ```
 
-As mentioned above, GPT-3.5 is a language model, not a factual search
+As mentioned above, GPT is a language model, not a factual search
 engine. While the data can be correct, there’s a chance it is not and it
-needs to manually checked. This is just an experiment.
+needs to manually checked.
 
 ## Parsing unstructured data
 
-GPT-3.5 seems quite good at parsing data from unstructured text.
+GPT seems quite good at parsing data from unstructured text.
 
 Let’s take the [Register of Members’ Financial
 Interests](https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/parliamentary-commissioner-for-standards/registers-of-interests/register-of-members-financial-interests/),
@@ -111,3 +122,38 @@ can be](https://platform.openai.com/docs/models/gpt-3-5), so we’re
 splitting the query into chunks and rejoining the parts afterwards.
 
 This may throw some errors in the future, so it’s a work in progress.
+
+## Web scraping
+
+Parsing unstructured data also applies to web pages. Let’s look at an
+example.
+
+``` r
+oscar_winners <- scrape_ai("https://edition.cnn.com/2023/03/12/entertainment/oscar-winners-2023/index.html",
+                           cols = c("category", "winner", "nominees"),
+                           clean = "text",
+                           css = "div[itemprop='articleBody']")
+```
+
+Here, we are getting a [CNN article listing all the 2023 Oscars
+winners](https://edition.cnn.com/2023/03/12/entertainment/oscar-winners-2023/index.html)
+and telling GPT what to scrape off the page. It returns a table with the
+columns we specified.
+
+There are two additional parameters we’re feeding into the function:
+
+- The `clean = "text"` strips all our content of HTML tags, which is
+  useful in our case, as we don’t care about the formatting. It can be
+  set to `clean = "html"` to only scrape off [unnecessary
+  HTML](https://lxml.de/api/lxml.html.clean.Cleaner-class.html), or to
+  `clean = FALSE` to keep the entire thing.
+
+- The CSS selector targets a specific part of the page, meaning we don’t
+  send the entire page with navigation menus, sidebars, etc.
+  Alternatively, you can use an XPATH selector.
+
+Both of these are optional and are designed to reduce the size of the
+prompt we’re sending, and subsequently reduce the cost of a query.
+
+For now, the web scraper can’t deal with prompts bigger than the token
+limit.
