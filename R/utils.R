@@ -12,8 +12,14 @@ request_openai <- function(prompt, api_key = Sys.getenv("OPENAI_API_KEY"), model
                       `Content-Type` = "application/json",
                       `Authorization` = paste0("Bearer ", api_key)
                     )),
-                    body = data) |>
-    httr::content()
+                    body = data)
+
+  if (res$status_code == 200) {
+    res <- res |> httr::content()
+  } else {
+    res <- res |> httr::content()
+    stop(res$error$message)
+  }
 
   # print(res)
   message(paste0("Used ", res$usage$total_tokens, " tokens, of which ", res$usage$prompt_tokens, " for the prompt, and ", res$usage$completion_tokens, " for the completion."))
