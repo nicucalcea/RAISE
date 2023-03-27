@@ -67,6 +67,22 @@ buildings <- create_ai("Top 10 tallest buildings in the world",
 As mentioned above, GPT is a language model, not a factual search engine.
 While the data can be correct, there's a chance it is not and it needs to manually checked.
 
+## Mutating new columns
+
+Let's say you have a list of email addresses, and you want to extract the first and last names from them.
+Or a list of names and you're trying to estimate their most likely gender?
+
+You can use GPT to augment your existing data.
+Here's an example.
+
+```{r eval=FALSE}
+top_banks <- tibble::tribble(~bank, "HSBC Holdings", "Lloyds Banking Group", "Royal Bank of Scotland Group", "Barclays", "Standard Chartered", "Santander UK", "Nationwide Building Society", "Schroders") |>
+  mutate(website = answer_ai(paste0("Official website of ", bank, ": ")),
+         phone_nr = answer_ai(paste0("Customer service number of ", bank, ": ")))
+```
+
+In this case, the function will call the API for each one of your rows, and it will save the responses to a new column.
+
 ## Parsing unstructured data
 
 GPT seems quite good at parsing data from unstructured text.
