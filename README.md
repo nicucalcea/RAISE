@@ -93,7 +93,7 @@ to estimate their most likely gender?
 You can use GPT to augment your existing data. Here’s an example.
 
 ``` r
-top_banks <- tibble::tribble(~bank, "HSBC Holdings", "Lloyds Banking Group", "Royal Bank of Scotland Group", "Barclays", "Standard Chartered", "Santander UK", "Nationwide Building Society", "Schroders") |>
+top_banks <- tribble(~bank, "HSBC Holdings", "Lloyds Banking Group", "Royal Bank of Scotland Group", "Barclays", "Standard Chartered", "Santander UK", "Nationwide Building Society", "Schroders") |>
   mutate(website = answer_ai(paste0("Official website of ", bank, ": ")),
          phone_nr = answer_ai(paste0("Customer service number of ", bank, ": ")))
 ```

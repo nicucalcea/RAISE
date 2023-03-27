@@ -18,7 +18,8 @@ request_openai <- function(prompt, api_key = Sys.getenv("OPENAI_API_KEY"), model
     res <- res |> httr::content()
   } else {
     res <- res |> httr::content()
-    stop(res$error$message)
+    warning(res$error$message)
+    res <- NA
   }
 
   # print(res)
