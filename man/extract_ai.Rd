@@ -4,10 +4,20 @@
 \alias{extract_ai}
 \title{Parse a string or vector to a tibble}
 \usage{
-extract_ai(text, cols, ...)
+extract_ai(
+  text,
+  prompt = "Summarise the following: ",
+  prompt_system = "You can only respond with a pipe-separated table.",
+  cols,
+  ...
+)
 }
 \arguments{
 \item{text}{A vector of unstructured text you want to parse to a table.}
+
+\item{prompt}{A question you want to ask GPT. Something like "Summarise this as a table".}
+
+\item{prompt_system}{The system message helps set the behaviour of the AI. It can be something like "You are a helpful assistant."}
 
 \item{cols}{The columns of the tibble to be returned. Could be something like `c("State", "Area", "Population")`}
 }
