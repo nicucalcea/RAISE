@@ -4,10 +4,17 @@
 \alias{answer_ai}
 \title{Send a prompt to GPT and get a response}
 \usage{
-answer_ai(prompt)
+answer_ai(
+  prompt,
+  prompt_system =
+    "You are a helpful assistant that answers question as briefly as possible.",
+  ...
+)
 }
 \arguments{
 \item{prompt}{A question you want to ask GPT.}
+
+\item{prompt_system}{The system message helps set the behaviour of the AI. It can be something like "You are a helpful assistant."}
 }
 \description{
 You will need an OpenAI API key.

@@ -63,7 +63,8 @@ OPENAI_API_KEY = "API_KEY_HERE"
 
 Save it and restart.
 
-If you use [gptstudio](https://github.com/MichelNivard/gptstudio) or
+If you use [chatgpt](https://github.com/jcrodriguez1989/chatgpt),
+[gptstudio](https://github.com/MichelNivard/gptstudio) or
 [gpttools](https://github.com/JamesHWade/gpttools), you should already
 be set up.
 
